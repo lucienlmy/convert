@@ -28,7 +28,11 @@ class ImageMagickHandler implements FormatHandler {
     Magick.supportedFormats.forEach(format => {
       const formatName = format.format.toLowerCase();
       const mimeType = format.mimeType || mime.getType(formatName);
-      if (!mimeType || mimeType.startsWith("text/")) return;
+      if (
+        !mimeType
+        || mimeType.startsWith("text/")
+        || mimeType.startsWith("video/")
+      ) return;
       this.supportedFormats.push({
         name: format.description,
         format: formatName,
