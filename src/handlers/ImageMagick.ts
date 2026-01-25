@@ -5,6 +5,7 @@ import {
   MagickImageCollection,
   MagickReadSettings
 } from "@imagemagick/magick-wasm";
+import type { IMagickImageCollection } from "@imagemagick/magick-wasm";
 
 import mime from "mime";
 
@@ -70,7 +71,7 @@ class ImageMagickHandler implements FormatHandler {
       MagickImageCollection.use(outputCollection => {
         for (const inputFile of inputFiles) {
           MagickImageCollection.use(fileCollection => {
-            fileCollection.read(inputFile.bytes);
+            fileCollection.read(inputFile.bytes, inputSettings);
             while (fileCollection.length > 0) {
               const image = fileCollection.shift();
               if (!image) break;
