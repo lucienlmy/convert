@@ -145,6 +145,15 @@ There are a few additional things that I want to point out in particular:
 - When handling MIME types, run them through [normalizeMimeType](src/normalizeMimeType.ts) first. One file can have multiple valid MIME types, which isn't great when you're trying to match them algorithmically.
 - When implementing a new file format, please treat the file as the media that it represents, not the data that it contains. For example, if you were making an SVG handler, you should treat the file as an _image_, not as XML.
 
+### Testing
+
+This project currently uses two levels of tests:
+
+- Broad project-level tests live directly in `test/` (for example graph traversal and end-to-end conversion smoke tests).
+- Optional handler-specific unit tests live in `test/handlers/`, using the file name pattern `<handlerName>.test.ts`. These are a good fit for handlers with meaningful parsing, serialization, or file-naming logic that is hard to exercise reliably through traversal alone.
+
+Not every handler needs a dedicated unit test, but handlers with non-trivial internal logic generally should have one.
+
 ### Adding dependencies
 
 If your tool requires an external dependency (which it likely does), there are currently two well-established ways of going about this:
